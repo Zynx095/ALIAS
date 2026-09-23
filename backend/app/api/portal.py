@@ -8,11 +8,11 @@ from fastapi import APIRouter, Depends, Request, BackgroundTasks, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 from typing import Optional, Dict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import uuid
 import logging
 
-from models.database import get_db, SessionLocal
+from models.database import get_db, SessionLocal, LoginEvent
 from schemas.ingestion import RawLoginEvent
 from schemas.login import LoginEventDetail
 from services.ingestion_service import IngestionService
@@ -25,7 +25,23 @@ router = APIRouter()
 # In-memory consecutive failed login attempts tracker per user
 _FAILED_ATTEMPTS_STORE: Dict[str, int] = {}
 
+# Baseline seeding constants — must stay in sync with the "new_york" / "corporate_laptop"
+# presets below so a baseline login at those presets never reads as anomalous.
+BASELINE_HISTORY_DEPTH = 10
+# Spread of business hours (UTC) to seed baseline logins across, so a live
+# demo run at any reasonable hour of the day reads as "typical" rather than
+# flagging every portal login as off-hours because the seed used one fixed hour.
+BASELINE_BUSINESS_HOURS_UTC = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+_HOME_IP = "198.51.100.24"
+_HOME_LOCATION = "New York, US"
+_HOME_LAT = 40.7128
+_HOME_LNG = -74.0060
+_HOME_DEVICE_FINGERPRINT = "macbook-pro-corp-m3-001"
+_HOME_DEVICE_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+
 # Canonical Demo Users & Passwords (passwords stay in this auth handler, NEVER passed to telemetry)
+# All three share the same home IP/location/device as the "new_york" + "corporate_laptop"
+# presets below, so their seeded baselines match the portal's own baseline preset exactly.
 DEMO_CREDENTIALS = {
     "yukith": {
         "user_id": "yukith",
@@ -33,11 +49,11 @@ DEMO_CREDENTIALS = {
         "password": "YukithSecure2026!",
         "name": "Yukith M Joseph",
         "role": "Security Engineer",
-        "default_ip": "198.51.100.24",
-        "default_device": "macbook-pro-yukith-corp",
-        "home_location": "New York, US",
-        "home_lat": 40.7128,
-        "home_lng": -74.0060,
+        "default_ip": _HOME_IP,
+        "default_device": _HOME_DEVICE_FINGERPRINT,
+        "home_location": _HOME_LOCATION,
+        "home_lat": _HOME_LAT,
+        "home_lng": _HOME_LNG,
     },
     "sarah": {
         "user_id": "demo_sarah",
@@ -45,11 +61,11 @@ DEMO_CREDENTIALS = {
         "password": "Password123!",
         "name": "Sarah Connors",
         "role": "VP Operations",
-        "default_ip": "198.51.100.24",
-        "default_device": "device-macbook-pro-16",
-        "home_location": "New York, US",
-        "home_lat": 40.7128,
-        "home_lng": -74.0060,
+        "default_ip": _HOME_IP,
+        "default_device": _HOME_DEVICE_FINGERPRINT,
+        "home_location": _HOME_LOCATION,
+        "home_lat": _HOME_LAT,
+        "home_lng": _HOME_LNG,
     },
     "ceo": {
         "user_id": "demo_ceo",
@@ -57,11 +73,11 @@ DEMO_CREDENTIALS = {
         "password": "Executive2026!",
         "name": "Chief Executive Officer",
         "role": "Executive",
-        "default_ip": "198.51.100.50",
-        "default_device": "device-macbook-pro-corp",
-        "home_location": "New York, US",
-        "home_lat": 40.7128,
-        "home_lng": -74.0060,
+        "default_ip": _HOME_IP,
+        "default_device": _HOME_DEVICE_FINGERPRINT,
+        "home_location": _HOME_LOCATION,
+        "home_lat": _HOME_LAT,
+        "home_lng": _HOME_LNG,
     },
 }
 
@@ -140,6 +156,53 @@ DEVICE_PRESETS = {
         "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1",
     },
 }
+
+
+def _ensure_baseline_seeded(db: Session, user_id: str) -> None:
+    """Seed deterministic baseline history for a known portal demo user.
+
+    Without this, a demo user's first-ever portal login has no baseline to
+    compare against, so NEW_DEVICE / IMPOSSIBLE_TRAVEL / UNSEEN_IP anomalies
+    never fire during a live demo. Seeds business-hour logins at the shared
+    home IP/location/device (matching the "new_york" + "corporate_laptop"
+    presets) so any deviation from those presets reads as a real anomaly.
+    Idempotent: skips once real history already exists for this user.
+    """
+    # Gate on successful-login count, matching BaselineProfileEngine's own
+    # READY threshold — raw row count is not reliable once ad-hoc failed
+    # attempts (e.g. brute-force demo clicks) are mixed into history.
+    success_count = db.query(LoginEvent).filter(
+        LoginEvent.user_id == user_id, LoginEvent.auth_status == "SUCCESS"
+    ).count()
+    if success_count >= BASELINE_HISTORY_DEPTH:
+        return
+
+    now = datetime.now(timezone.utc)
+    to_seed = BASELINE_HISTORY_DEPTH - success_count
+    for i in range(to_seed, 0, -1):
+        hour = BASELINE_BUSINESS_HOURS_UTC[i % len(BASELINE_BUSINESS_HOURS_UTC)]
+        past_time = (now - timedelta(days=to_seed - i + 1)).replace(
+            hour=hour, minute=0, second=0, microsecond=0
+        )
+        evt = RawLoginEvent(
+            user_id=user_id,
+            ip_address=_HOME_IP,
+            latitude=_HOME_LAT,
+            longitude=_HOME_LNG,
+            location=_HOME_LOCATION,
+            device_fingerprint=_HOME_DEVICE_FINGERPRINT,
+            user_agent=_HOME_DEVICE_UA,
+            timestamp=past_time,
+            auth_status="SUCCESS",
+            failed_attempts=0,
+            access_pattern="DIRECT",
+            source_event_id=f"portal-baseline-{user_id}-{uuid.uuid4().hex[:8]}",
+            source="PORTAL_BASELINE",
+        )
+        IngestionService.ingest_single(db, evt)
+
+    BaselinePreparationService.prepare_baseline(db, user_id, days=30)
+    logger.info(f"PORTAL_BASELINE_SEEDED: user={user_id} added={to_seed}")
 
 
 class PortalLoginRequest(BaseModel):
@@ -241,9 +304,14 @@ async def portal_authenticate(
     loc_data = LOCATION_PRESETS.get(login_req.location_preset, LOCATION_PRESETS["new_york"])
     dev_data = DEVICE_PRESETS.get(login_req.device_preset, DEVICE_PRESETS["corporate_laptop"])
 
-    # Ensure baseline exists for this user if it's their first login
+    # Ensure a known demo user has baseline history before their first real
+    # login so anomaly detection has something to compare against; otherwise
+    # rebuild the baseline as usual (cheap no-op once history is sufficient).
     try:
-        BaselinePreparationService.prepare_baseline(db, user_id)
+        if matched_account is not None:
+            _ensure_baseline_seeded(db, user_id)
+        else:
+            BaselinePreparationService.prepare_baseline(db, user_id)
     except Exception as e:
         logger.warning(f"Baseline prep check non-fatal: {e}")
 
