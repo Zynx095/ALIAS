@@ -1,0 +1,171 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.0, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\College\SOMESHIT DOWNLOADS\shadowguard-main
+plugins: anyio-4.13.0, typeguard-4.5.1
+collected 4 items / 3 deselected / 1 selected
+
+tests\api\test_scenarios.py F                                            [100%]
+
+================================== FAILURES ===================================
+____________________________ test_run_multi_signal ____________________________
+
+    def test_run_multi_signal():
+        response = client.post("/api/scenarios/multi_signal/run")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["events_generated"] == 1
+    
+        event_ids = data["results"]["event_ids"]
+        assert len(event_ids) == 1
+    
+        import time
+        time.sleep(0.5)  # Wait for background task
+    
+        resp = client.get(f"/api/events/{event_ids[0]}/anomalies")
+        assert resp.status_code == 200
+        data = resp.json()
+    
+        # Check baseline status
+        from models.database import get_db, UserBaseline
+        db2 = next(get_db())
+        baseline = db2.query(UserBaseline).filter(UserBaseline.user_id == "demo_ceo").first()
+    
+        assert "anomalies" in data, data
+        anomalies = data["anomalies"]
+        assert len(anomalies) > 0, f"Expected anomalies but got 0. Baseline status: {baseline.status}, Risk resp: {client.get(f'/api/events/{event_ids[0]}/risk').json()}"
+        types = [a["anomaly_type"] for a in anomalies]
+>       assert "UNSEEN_DEVICE" in types or "DEVICE" in types or "NEW_DEVICE" in types or "UNSEEN_IP" in types, f"Found anomalies: {types}"
+E       AssertionError: Found anomalies: ['TEMPORAL_ANOMALY', 'DEVICE_ANOMALY', 'NETWORK_ANOMALY', 'AUTHENTICATION_ANOMALY', 'ACCESS_PATTERN_ANOMALY']
+E       assert ('UNSEEN_DEVICE' in ['TEMPORAL_ANOMALY', 'DEVICE_ANOMALY', 'NETWORK_ANOMALY', 'AUTHENTICATION_ANOMALY', 'ACCESS_PATTERN_ANOMALY'] or 'DEVICE' in ['TEMPORAL_ANOMALY', 'DEVICE_ANOMALY', 'NETWORK_ANOMALY', 'AUTHENTICATION_ANOMALY', 'ACCESS_PATTERN_ANOMALY'] or 'NEW_DEVICE' in ['TEMPORAL_ANOMALY', 'DEVICE_ANOMALY', 'NETWORK_ANOMALY', 'AUTHENTICATION_ANOMALY', 'ACCESS_PATTERN_ANOMALY'] or 'UNSEEN_IP' in ['TEMPORAL_ANOMALY', 'DEVICE_ANOMALY', 'NETWORK_ANOMALY', 'AUTHENTICATION_ANOMALY', 'ACCESS_PATTERN_ANOMALY'])
+
+tests\api\test_scenarios.py:59: AssertionError
+---------------------------- Captured stdout call -----------------------------
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=1 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=2 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=3 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=4 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=5 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=6 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=7 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=8 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=9 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=10 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.services.baseline_prep | BASELINE_PREPARATION_STARTED: user=demo_ceo days=30
+2026-09-23 01:06:14 | INFO     | alias.services.baseline_prep | BASELINE_PREPARATION_COMPLETED: user=demo_ceo logins=10
+2026-09-23 01:06:14 | INFO     | alias.services.baseline_prep | BASELINE_PREPARATION_STARTED: user=demo_ceo days=30
+2026-09-23 01:06:14 | INFO     | alias.services.baseline_prep | BASELINE_PREPARATION_COMPLETED: user=demo_ceo logins=10
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | INGESTION_STARTED: user=demo_ceo source=DEMO_TEST
+2026-09-23 01:06:14 | INFO     | alias.services.ingestion | EVENT_PERSISTED: id=11 user=demo_ceo
+2026-09-23 01:06:14 | INFO     | alias.api.events | DEBUG BROADCAST: baseline_status=BaselineStatus.READY, comparison_status=BaselineStatus.READY, deviations=dict_keys(['TEMPORAL', 'DEVICE', 'LOCATION', 'NETWORK', 'AUTHENTICATION', 'ACCESS_PATTERN'])
+2026-09-23 01:06:14 | INFO     | alias.api.events | DEBUG BROADCAST: DB URL used: sqlite:///./test_alias.db
+2026-09-23 01:06:14 | INFO     | alias.investigation.engine | Generating investigation for Event 11 via mock-fallback...
+DEBUG ANOMALIES: total in DB=5, event_ids=[11, 11, 11, 11, 11]
+------------------------------ Captured log call ------------------------------
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=1 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=2 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=3 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=4 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=5 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=6 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=7 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=8 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=9 user=demo_ceo
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_HISTORY
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=10 user=demo_ceo
+INFO     alias.services.baseline_prep:baseline_preparation_service.py:25 BASELINE_PREPARATION_STARTED: user=demo_ceo days=30
+INFO     alias.services.baseline_prep:baseline_preparation_service.py:66 BASELINE_PREPARATION_COMPLETED: user=demo_ceo logins=10
+INFO     alias.services.baseline_prep:baseline_preparation_service.py:25 BASELINE_PREPARATION_STARTED: user=demo_ceo days=30
+INFO     alias.services.baseline_prep:baseline_preparation_service.py:66 BASELINE_PREPARATION_COMPLETED: user=demo_ceo logins=10
+INFO     alias.services.ingestion:ingestion_service.py:46 INGESTION_STARTED: user=demo_ceo source=DEMO_TEST
+INFO     alias.services.ingestion:ingestion_service.py:90 EVENT_PERSISTED: id=11 user=demo_ceo
+INFO     alias.api.events:events.py:75 DEBUG BROADCAST: baseline_status=BaselineStatus.READY, comparison_status=BaselineStatus.READY, deviations=dict_keys(['TEMPORAL', 'DEVICE', 'LOCATION', 'NETWORK', 'AUTHENTICATION', 'ACCESS_PATTERN'])
+INFO     alias.api.events:events.py:80 DEBUG BROADCAST: DB URL used: sqlite:///./test_alias.db
+INFO     alias.investigation.engine:engine.py:93 Generating investigation for Event 11 via mock-fallback...
+============================== warnings summary ===============================
+backend\app\main.py:106
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\main.py:106: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+C:\Users\Yukith M Joseph\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4598
+  C:\Users\Yukith M Joseph\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4598: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\services\scenarios\scenario_service.py:84: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = datetime.utcnow()
+
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\services\scenarios\scenario_service.py:69: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = datetime.utcnow()
+
+tests/api/test_scenarios.py: 19 warnings
+  C:\Users\Yukith M Joseph\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\schema.py:3624: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\services\baseline_preparation_service.py:28: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    cutoff_date = datetime.utcnow() - timedelta(days=days)
+
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\detection\baseline\engine.py:62: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    updated_at=datetime.utcnow()
+
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\services\baseline_preparation_service.py:62: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    baseline.updated_at = datetime.utcnow()
+
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+  D:\College\SOMESHIT DOWNLOADS\shadowguard-main\tests\..\backend\app\websocket\manager.py:44: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.utcnow().isoformat(),
+
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+tests/api/test_scenarios.py::test_run_multi_signal
+  C:\Users\Yukith M Joseph\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydantic\main.py:263: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/api/test_scenarios.py::test_run_multi_signal - AssertionError: F...
+================ 1 failed, 3 deselected, 42 warnings in 0.89s =================

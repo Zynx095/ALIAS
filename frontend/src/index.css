@@ -1,0 +1,247 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   ALIAS DESIGN TOKENS — "Ivory Signal" (Light-First Architectural Redesign)
+
+   Palette:
+   - Canvas:           #F7F5F2 (Warm Ivory Page)
+   - Surface:          #FFFFFF (Pure White Container)
+   - Elevated Surface: #FCFBF9 (Clean Floating Panel)
+   - Soft Surface:     #F0EDE8 (Subtle Inset / Well)
+   - Border:           #DDD8D0 (Crisp Architectural Line)
+   - Stronger Border:  #C9C2B9 (Focused Boundary)
+
+   Typography:
+   - Primary:          #181716 (Deep Charcoal)
+   - Secondary:        #625E58 (Mid Charcoal)
+   - Muted:            #858079 (Warm Slate)
+
+   Brand Accent:
+   - Primary Ember:    #E56B3F (Warm Orange — Brand / Interaction Only)
+   - Deep Ember:       #B94725
+   - Soft Ember:       #FCE9E1
+
+   AI Interpretation (Quarantined to AI Layer Only):
+   - AI Indigo:        #6657D9
+   - AI Soft:          #EEEBFF
+
+   Semantic Security Signals (Data-Bearing Only):
+   - LOW:              #2F9E6F
+   - MODERATE:         #C58A24
+   - HIGH:             #D86632
+   - CRITICAL:         #C83D3D
+   ============================================================ */
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Geist Variable', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'Geist Mono Variable', monospace;
+
+  /* Surfaces */
+  --color-canvas: #F7F5F2;
+  --color-background: #F7F5F2;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FCFBF9;
+  --color-surface-soft: #F0EDE8;
+  --color-surface-inset: #F0EDE8;
+  --color-surface-hover: #F0EDE8;
+  --color-surface-active: #FCE9E1;
+
+  /* Backward Compatibility */
+  --color-bg-primary: #F7F5F2;
+  --color-bg-secondary: #FFFFFF;
+
+  /* Typography */
+  --color-foreground: #181716;
+  --color-text: #181716;
+  --color-text-primary: #181716;
+  --color-text-secondary: #625E58;
+  --color-text-muted: #858079;
+
+  /* Boundaries & Focus */
+  --color-border: #DDD8D0;
+  --color-border-strong: #C9C2B9;
+  --color-divider: #DDD8D0;
+  --color-ring: #E56B3F;
+  --color-focus: #E56B3F;
+  --color-input: #DDD8D0;
+
+  /* Brand Ember Actions */
+  --color-brand-ember: #E56B3F;
+  --color-brand-deep: #B94725;
+  --color-brand-soft: #FCE9E1;
+  --color-primary: #E56B3F;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #FFFFFF;
+  --color-secondary-foreground: #181716;
+
+  /* AI Accent — Strictly Quarantined to AI UI */
+  --color-accent-ai: #6657D9;
+  --color-ai-indigo: #6657D9;
+  --color-ai-soft: #EEEBFF;
+  --color-ai-bg: #EEEBFF;
+  --color-ai-indicator: #6657D9;
+  --color-ai-fill: #6657D9;
+  --color-ai-on-fill: #FFFFFF;
+
+  /* Semantic Severity Tokens */
+  --color-severity-low: #2F9E6F;
+  --color-severity-moderate: #C58A24;
+  --color-severity-high: #D86632;
+  --color-severity-critical: #C83D3D;
+
+  --color-sev-low-indicator: #2F9E6F;
+  --color-sev-low-bg: #F0FDF4;
+  --color-sev-low-text: #166534;
+
+  --color-sev-moderate-indicator: #C58A24;
+  --color-sev-moderate-bg: #FEFCE8;
+  --color-sev-moderate-text: #854D0E;
+
+  --color-sev-high-indicator: #D86632;
+  --color-sev-high-bg: #FFF7ED;
+  --color-sev-high-text: #9A3412;
+
+  --color-sev-critical-indicator: #C83D3D;
+  --color-sev-critical-bg: #FEF2F2;
+  --color-sev-critical-text: #991B1B;
+
+  /* Sidebar */
+  --color-sidebar: #FFFFFF;
+  --color-sidebar-foreground: #181716;
+  --color-sidebar-primary: #E56B3F;
+  --color-sidebar-primary-foreground: #FFFFFF;
+  --color-sidebar-accent: #FCE9E1;
+  --color-sidebar-accent-foreground: #B94725;
+  --color-sidebar-border: #DDD8D0;
+  --color-sidebar-ring: #E56B3F;
+
+  /* Cards */
+  --color-card: #FFFFFF;
+  --color-card-foreground: #181716;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #181716;
+  --color-muted: #F0EDE8;
+  --color-muted-foreground: #858079;
+  --color-destructive: #C83D3D;
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+:root {
+  /* Foundation */
+  --canvas:           #F7F5F2;
+  --background:       #F7F5F2;
+  --surface:          #FFFFFF;
+  --surface-elevated: #FCFBF9;
+  --surface-soft:     #F0EDE8;
+  --surface-inset:    #F0EDE8;
+  --surface-hover:    #F0EDE8;
+  --surface-active:   #FCE9E1;
+
+  --border:           #DDD8D0;
+  --border-strong:    #C9C2B9;
+  --divider:          #DDD8D0;
+
+  /* Typography */
+  --text-primary:     #181716;
+  --text-secondary:   #625E58;
+  --text-muted:       #858079;
+  --text:             #181716;
+  --foreground:       #181716;
+
+  /* Brand Ember */
+  --brand-ember:      #E56B3F;
+  --brand-deep:       #B94725;
+  --brand-soft:       #FCE9E1;
+  --primary:          #E56B3F;
+  --primary-foreground: #FFFFFF;
+  --focus:            #E56B3F;
+  --ring:             #E56B3F;
+
+  /* AI Layer */
+  --ai-indicator:     #6657D9;
+  --ai-bg:            #EEEBFF;
+  --ai-fill:          #6657D9;
+  --ai-on-fill:       #FFFFFF;
+  --accent-ai:        #6657D9;
+  --accent-ai-muted:  #EEEBFF;
+
+  /* Severity */
+  --sev-low-indicator:      #2F9E6F;
+  --sev-low-bg:             #F0FDF4;
+  --sev-low-text:           #166534;
+
+  --sev-moderate-indicator: #C58A24;
+  --sev-moderate-bg:        #FEFCE8;
+  --sev-moderate-text:      #854D0E;
+
+  --sev-high-indicator:     #D86632;
+  --sev-high-bg:            #FFF7ED;
+  --sev-high-text:          #9A3412;
+
+  --sev-critical-indicator: #C83D3D;
+  --sev-critical-bg:        #FEF2F2;
+  --sev-critical-text:      #991B1B;
+
+  /* UI Compatibility */
+  --bg-primary:             #F7F5F2;
+  --bg-secondary:           #FFFFFF;
+  --card:                   #FFFFFF;
+  --card-foreground:        #181716;
+  --popover:                #FFFFFF;
+  --popover-foreground:     #181716;
+  --muted:                  #F0EDE8;
+  --muted-foreground:       #858079;
+  --destructive:            #C83D3D;
+
+  --sidebar:                #FFFFFF;
+  --sidebar-foreground:     #181716;
+  --sidebar-primary:        #E56B3F;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:         #FCE9E1;
+  --sidebar-accent-foreground: #B94725;
+  --sidebar-border:         #DDD8D0;
+  --sidebar-ring:           #E56B3F;
+
+  --radius: 6px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    background-color: var(--canvas);
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #DDD8D0; border-radius: 9999px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #C9C2B9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

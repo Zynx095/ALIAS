@@ -1,0 +1,119 @@
+[
+  {
+    "scenario_id": "normal_login",
+    "name": "Scenario 1 \u2014 Normal Login",
+    "description": "Establish the baseline/control case. Known user, device, location, and routine business hours.",
+    "purpose": "Demonstrate normal behavior with no meaningful deviation.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_sarah"
+    ],
+    "event_count": 11,
+    "target_event_id": "alias-demo-normal-001",
+    "expected_anomalies": [],
+    "expected_risk": 0.0,
+    "expected_severity": "LOW",
+    "expected_investigation": false,
+    "dataset_reference": "Screenshot 1 (Identity Log) \u2014 Routine single-user sequence"
+  },
+  {
+    "scenario_id": "new_device",
+    "name": "Scenario 2 \u2014 New Device",
+    "description": "Known user, location, and network route. Previously unseen device fingerprint.",
+    "purpose": "Isolate device novelty detection while location, IP, and timing remain normal.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_david"
+    ],
+    "event_count": 11,
+    "target_event_id": "alias-demo-new-device-001",
+    "expected_anomalies": [
+      "NEW_DEVICE"
+    ],
+    "expected_risk": 15.0,
+    "expected_severity": "LOW",
+    "expected_investigation": true,
+    "dataset_reference": "Screenshot 1 (Identity Log) \u2014 Device/OS tuple change"
+  },
+  {
+    "scenario_id": "impossible_travel",
+    "name": "Scenario 3 \u2014 Impossible Travel",
+    "description": "Two chronologically adjacent logins with physically impossible geographic velocity.",
+    "purpose": "Trigger geographic velocity anomaly between distant locations in short elapsed time.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_traveler"
+    ],
+    "event_count": 12,
+    "target_event_id": "alias-demo-impossible-travel-002",
+    "expected_anomalies": [
+      "IMPOSSIBLE_TRAVEL"
+    ],
+    "expected_risk": 40.0,
+    "expected_severity": "MODERATE",
+    "expected_investigation": true,
+    "dataset_reference": "Screenshot 1 (Identity Log) + Screenshot 2 (Graph sequence transition)"
+  },
+  {
+    "scenario_id": "auth_burst",
+    "name": "Scenario 4 \u2014 Authentication Burst",
+    "description": "Multiple failed authentication attempts immediately preceding a successful login.",
+    "purpose": "Demonstrate brute-force / credential stuffing detection before access.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_admin"
+    ],
+    "event_count": 15,
+    "target_event_id": "alias-demo-auth-burst-001",
+    "expected_anomalies": [
+      "BRUTE_FORCE"
+    ],
+    "expected_risk": 45.0,
+    "expected_severity": "MODERATE",
+    "expected_investigation": true,
+    "dataset_reference": "Screenshot 3 (IdP Audit) \u2014 Challenge & failure sequence"
+  },
+  {
+    "scenario_id": "multi_signal",
+    "name": "Scenario 5 \u2014 Multi-Signal Compromise",
+    "description": "Unseen device + new location + off-hours timing + TOR anonymizing proxy + auth burst.",
+    "purpose": "Primary showcase demonstrating correlation across 5 independent behavioral signals.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_ceo"
+    ],
+    "event_count": 11,
+    "target_event_id": "alias-demo-multi-signal-001",
+    "expected_anomalies": [
+      "NEW_DEVICE",
+      "IMPOSSIBLE_TRAVEL",
+      "UNSEEN_IP",
+      "OFF_HOURS",
+      "ANONYMOUS_PROXY"
+    ],
+    "expected_risk": 90.0,
+    "expected_severity": "CRITICAL",
+    "expected_investigation": true,
+    "dataset_reference": "Screenshot 1 & 3 \u2014 Multi-attribute anomaly composite"
+  },
+  {
+    "scenario_id": "unseen_network",
+    "name": "Scenario 6 \u2014 Unseen Network & Proxy",
+    "description": "Corporate VPN user logging in from an unannounced TOR proxy node from a new IP/subnet.",
+    "purpose": "Validate network topology and anonymizing proxy routing anomaly detection.",
+    "source": "SCENARIO",
+    "users": [
+      "demo_marcus"
+    ],
+    "event_count": 11,
+    "target_event_id": "alias-demo-unseen-network-001",
+    "expected_anomalies": [
+      "UNSEEN_IP",
+      "ANONYMOUS_PROXY"
+    ],
+    "expected_risk": 35.0,
+    "expected_severity": "MODERATE",
+    "expected_investigation": true,
+    "dataset_reference": "Screenshot 1 & 3 \u2014 Proxy network transition"
+  }
+]
