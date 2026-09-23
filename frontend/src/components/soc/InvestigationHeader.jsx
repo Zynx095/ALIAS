@@ -12,7 +12,7 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
   const backLabel = origin === 'history' ? 'Back to Investigation Register' : 'Back to Overview';
 
   return (
-    <div className="bg-surface border border-border rounded-lg p-5 shrink-0 shadow-xs flex flex-col gap-4">
+    <div className="bg-surface border border-border p-5 shrink-0 shadow-xs flex flex-col gap-4">
       {/* Origin Navigation */}
       <div className="flex items-center justify-between border-b border-border/80 pb-3">
         <button
@@ -24,7 +24,7 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
           <span>← {backLabel}</span>
         </button>
 
-        <span className="text-3xs font-mono uppercase tracking-widest text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
+        <span className="text-3xs font-mono uppercase tracking-widest text-text-muted bg-surface-soft px-2 py-0.5 border border-border">
           Forensic Telemetry Dossier
         </span>
       </div>
@@ -56,8 +56,8 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
 
           {event && (
             <>
-              <h1 className="text-xl font-bold tracking-tight text-text-primary flex items-center gap-2.5">
-                <span className="w-8 h-8 rounded-full bg-brand-soft border border-brand-ember/30 flex items-center justify-center text-brand-ember shrink-0">
+              <h1 className="text-xl font-bold tracking-tight text-text-primary flex items-center gap-2.5 font-heading">
+                <span className="w-8 h-8 rounded-sm bg-brand-soft border border-brand-ember/30 flex items-center justify-center text-brand-ember shrink-0">
                   <User className="w-4 h-4" aria-hidden="true" />
                 </span>
                 <span className="truncate">{event.user_id}</span>
@@ -90,12 +90,12 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
           {risk ? (
             <RiskScore score={risk.risk_score} severity={risk.severity} size="large" className="w-full md:w-60" />
           ) : riskState.status === 'loading' ? (
-            <div className="bg-surface border border-border rounded-md p-4 min-w-[200px] flex items-center justify-center gap-2 text-xs text-text-muted">
+            <div className="bg-surface border border-border rounded-sm p-4 min-w-[200px] flex items-center justify-center gap-2 text-xs text-text-muted">
               <Loader2 className="w-3.5 h-3.5 animate-spin text-brand-ember" aria-hidden="true" />
               <span>Assessing Risk...</span>
             </div>
           ) : (
-            <div className="bg-surface border border-border rounded-md p-3.5 text-xs text-text-muted">
+            <div className="bg-surface border border-border rounded-sm p-3.5 text-xs text-text-muted">
               No Risk Assessment Recorded
             </div>
           )}

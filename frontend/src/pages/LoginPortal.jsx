@@ -127,7 +127,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
             <span className="text-text-muted text-xs">/</span>
             <span className="text-xs font-mono text-text-muted">yukith-hub.vercel.app simulation</span>
           </div>
-          <h1 className="text-lg font-bold tracking-tight text-text-primary mt-1">
+          <h1 className="text-lg font-bold tracking-tight text-text-primary mt-1 font-heading">
             Yukith Hub · Single Sign-On Portal
           </h1>
           <p className="text-xs text-text-secondary mt-0.5">
@@ -139,7 +139,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
           <button
             type="button"
             onClick={handleResetCounters}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-text-secondary bg-surface border border-border hover:bg-surface-elevated transition-colors outline-none focus-visible:ring-2 focus-visible:ring-focus"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-text-secondary bg-surface border border-border hover:bg-surface-elevated transition-colors outline-none focus-visible:ring-2 focus-visible:ring-focus"
           >
             <RotateCcw className="w-3.5 h-3.5 text-text-muted" aria-hidden="true" />
             <span>Reset Demo State</span>
@@ -154,7 +154,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
         <div className="lg:col-span-7 flex flex-col gap-5">
 
           {/* Quick Preset Selector for Judges */}
-          <div className="bg-surface border border-border rounded-lg p-4 shadow-xs">
+          <div className="bg-surface border border-border rounded p-4 shadow-xs">
             <div className="flex items-center justify-between mb-3">
               <span className="text-3xs font-mono uppercase tracking-wider text-text-muted font-bold flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-brand-ember" />
@@ -172,7 +172,7 @@ Choose Identity Preset
                     type="button"
                     onClick={() => handleSelectUser(u.key)}
                     className={cn(
-                      "p-3 rounded-md border text-left flex flex-col gap-1 transition-all outline-none",
+                      "p-3 rounded-sm border text-left flex flex-col gap-1 transition-all outline-none",
                       "focus-visible:ring-2 focus-visible:ring-focus",
                       isSelected
                         ? "border-brand-ember bg-brand-soft/30 ring-1 ring-brand-ember shadow-xs"
@@ -189,7 +189,7 @@ Choose Identity Preset
           </div>
 
           {/* Login Interface Form */}
-          <div className="bg-surface border border-border rounded-lg p-6 shadow-xs flex flex-col gap-5">
+          <div className="bg-surface border border-border rounded p-6 shadow-xs flex flex-col gap-5">
             <div className="flex items-center justify-between border-b border-border/70 pb-3">
               <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4 text-brand-ember" />
@@ -213,7 +213,7 @@ Choose Identity Preset
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 bg-surface border border-border rounded-md text-xs text-text-primary font-mono outline-none focus:border-brand-ember focus:ring-1 focus:ring-brand-ember"
+                    className="w-full pl-9 pr-3 py-2 bg-surface border border-border rounded-sm text-xs text-text-primary font-mono outline-none focus:border-brand-ember focus:ring-1 focus:ring-brand-ember"
                     placeholder="e.g. yukith or sarah"
                   />
                 </div>
@@ -229,7 +229,7 @@ Choose Identity Preset
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-9 pr-10 py-2 bg-surface border border-border rounded-md text-xs text-text-primary font-mono outline-none focus:border-brand-ember focus:ring-1 focus:ring-brand-ember"
+                    className="w-full pl-9 pr-10 py-2 bg-surface border border-border rounded-sm text-xs text-text-primary font-mono outline-none focus:border-brand-ember focus:ring-1 focus:ring-brand-ember"
                     placeholder="Enter password"
                   />
                   <button
@@ -251,7 +251,7 @@ Choose Identity Preset
                 type="button"
                 disabled={loading}
                 onClick={() => handleAttempt("WRONG_PASSWORD_" + Math.floor(Math.random() * 999), "Wrong Password")}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-semibold bg-sev-critical-bg text-sev-critical-text border border-sev-critical-indicator/40 hover:bg-sev-critical-bg/80 hover:border-sev-critical-indicator transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus shadow-xs"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm text-xs font-semibold bg-sev-critical-bg text-sev-critical-text border border-sev-critical-indicator/40 hover:bg-sev-critical-bg/80 hover:border-sev-critical-indicator transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus shadow-xs"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4 text-sev-critical-indicator" />}
                 <span>Submit (Wrong Password)</span>
@@ -262,7 +262,7 @@ Choose Identity Preset
                 type="button"
                 disabled={loading}
                 onClick={() => handleAttempt(password, "Correct Password")}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-semibold bg-brand-ember text-white hover:bg-brand-deep transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus shadow-xs"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm text-xs font-semibold bg-brand-ember text-white hover:bg-brand-deep transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus shadow-xs"
               >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <CheckCircle2 className="w-4 h-4 text-white" />}
                 <span>Submit (Correct Password)</span>
@@ -270,7 +270,7 @@ Choose Identity Preset
             </div>
 
             {error && (
-              <div className="flex items-start gap-2 text-xs text-sev-critical-text bg-sev-critical-bg border border-sev-critical-indicator/40 rounded-md p-3">
+              <div className="flex items-start gap-2 text-xs text-sev-critical-text bg-sev-critical-bg border border-sev-critical-indicator/40 rounded-sm p-3">
                 <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-sev-critical-indicator" />
                 <div className="flex-1">
                   <p>{error}</p>
@@ -288,7 +288,7 @@ Choose Identity Preset
               </div>
             )}
 
-            <div className="text-2xs text-text-muted font-mono leading-relaxed bg-surface-soft p-3 rounded-md border border-border">
+            <div className="text-2xs text-text-muted font-mono leading-relaxed bg-surface-soft p-3 rounded-sm border border-border">
               <strong>Judge Demo Guide:</strong> Click <em>"Submit (Wrong Password)"</em> 3-4 times to simulate a brute-force credential stuffing burst. Then click <em>"Submit (Correct Password)"</em> to simulate a successful compromise, and observe the ALIAS behavioral pipeline synthesize the full incident.
             </div>
           </div>
@@ -298,7 +298,7 @@ Choose Identity Preset
         <div className="lg:col-span-5 flex flex-col gap-5">
 
           {/* Location Changer Card */}
-          <div className="bg-surface border border-border rounded-lg p-5 shadow-xs flex flex-col gap-3">
+          <div className="bg-surface border border-border rounded p-5 shadow-xs flex flex-col gap-3">
             <div className="flex items-center justify-between border-b border-border/70 pb-2.5">
               <div className="flex items-center gap-2">
                 <Globe2 className="w-4 h-4 text-brand-ember" />
@@ -322,7 +322,7 @@ Choose Identity Preset
                     type="button"
                     onClick={() => setSelectedLocation(loc.key)}
                     className={cn(
-                      "w-full p-2.5 rounded-md border text-left flex items-center justify-between gap-3 transition-all outline-none text-xs",
+                      "w-full p-2.5 rounded-sm border text-left flex items-center justify-between gap-3 transition-all outline-none text-xs",
                       "focus-visible:ring-2 focus-visible:ring-focus",
                       isSelected
                         ? "border-brand-ember bg-brand-soft/25 ring-1 ring-brand-ember shadow-2xs font-semibold"
@@ -347,7 +347,7 @@ Choose Identity Preset
           </div>
 
           {/* Device Profile Selector */}
-          <div className="bg-surface border border-border rounded-lg p-5 shadow-xs flex flex-col gap-3">
+          <div className="bg-surface border border-border rounded p-5 shadow-xs flex flex-col gap-3">
             <div className="flex items-center justify-between border-b border-border/70 pb-2.5">
               <div className="flex items-center gap-2">
                 <Laptop className="w-4 h-4 text-brand-ember" />
@@ -367,7 +367,7 @@ Choose Identity Preset
                     type="button"
                     onClick={() => setSelectedDevice(dev.key)}
                     className={cn(
-                      "w-full p-2.5 rounded-md border text-left flex items-center gap-3 transition-all outline-none text-xs",
+                      "w-full p-2.5 rounded-sm border text-left flex items-center gap-3 transition-all outline-none text-xs",
                       "focus-visible:ring-2 focus-visible:ring-focus",
                       isSelected
                         ? "border-brand-ember bg-brand-soft/25 ring-1 ring-brand-ember font-semibold"
@@ -390,7 +390,7 @@ Choose Identity Preset
 
       {/* Live Ingestion Telemetry Acknowledgment (Shows what ALIAS received) */}
       {lastResult && (
-        <div className="bg-surface border border-border rounded-lg p-5 shadow-xs flex flex-col gap-3">
+        <div className="bg-surface border border-border rounded p-5 shadow-xs flex flex-col gap-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/70 pb-3">
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-brand-ember" />
@@ -448,7 +448,7 @@ Choose Identity Preset
               <button
                 type="button"
                 onClick={onGoOverview}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-text-secondary bg-surface border border-border hover:bg-surface-elevated transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-text-secondary bg-surface border border-border hover:bg-surface-elevated transition-colors"
               >
                 <span>View in Overview</span>
                 <ArrowRight className="w-3 h-3" />
@@ -458,7 +458,7 @@ Choose Identity Preset
                 <button
                   type="button"
                   onClick={() => onOpenInvestigation(lastResult.event_id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-brand-ember hover:bg-brand-deep transition-colors shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold text-white bg-brand-ember hover:bg-brand-deep transition-colors shadow-xs"
                 >
                   <span>Inspect Forensic Dossier</span>
                   <ArrowRight className="w-3 h-3" />
@@ -471,12 +471,12 @@ Choose Identity Preset
 
       {/* Historical Attempts Ledger */}
       {recentAttempts.length > 0 && (
-        <div className="bg-surface border border-border rounded-lg p-5 shadow-xs flex flex-col gap-3">
+        <div className="bg-surface border border-border rounded p-5 shadow-xs flex flex-col gap-3">
           <h3 className="text-xs font-bold uppercase tracking-wider text-text-primary">
             Portal Authentication Activity Stream
           </h3>
 
-          <div className="divide-y divide-border border border-border rounded-md overflow-hidden bg-surface">
+          <div className="divide-y divide-border border border-border rounded-sm overflow-hidden bg-surface">
             {recentAttempts.map((att, idx) => (
               <div key={idx} className="p-3 flex items-center justify-between text-xs font-mono gap-3 hover:bg-surface-soft/60 transition-colors">
                 <div className="flex items-center gap-3">

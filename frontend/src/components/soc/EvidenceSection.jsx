@@ -18,18 +18,18 @@ export default function EvidenceSection({
 }) {
   return (
     <section aria-labelledby={`evidence-${number}`} className="flex flex-col gap-3">
-      {/* Stage Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1">
-        <div className="flex items-center gap-2.5">
-          <span className={cn("text-2xs font-mono font-bold px-2 py-0.5 rounded border", numberBg)}>
-            {String(number).padStart(2, '0')}
+      {/* Exhibit Header — case-file tab, not a card label */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-border pb-2">
+        <div className="flex items-center gap-3">
+          <span className={cn("text-2xs font-mono font-bold px-2 py-1 border", numberBg)}>
+            EXHIBIT {String(number).padStart(3, '0')}
           </span>
-          <h2 id={`evidence-${number}`} className="text-xs font-bold uppercase tracking-wider text-text-primary">
+          <h2 id={`evidence-${number}`} className="text-sm font-bold uppercase tracking-wide text-text-primary font-heading">
             {title}
           </h2>
         </div>
         {subtitle && (
-          <p className="text-2xs text-text-muted">
+          <p className="text-2xs text-text-muted font-mono">
             {subtitle}
           </p>
         )}
@@ -37,7 +37,7 @@ export default function EvidenceSection({
 
       {/* Loading State */}
       {status === 'loading' && (
-        <div className="flex items-center gap-2.5 text-xs text-text-muted p-5 border border-border rounded-lg bg-surface shadow-2xs" role="status" aria-label={`Loading ${title}`}>
+        <div className="flex items-center gap-2.5 text-xs text-text-muted p-5 border border-border bg-surface" role="status" aria-label={`Loading ${title}`}>
           <Loader2 className="w-4 h-4 animate-spin text-brand-ember shrink-0" aria-hidden="true" />
           <span>Analyzing telemetry for {title.toLowerCase()}…</span>
         </div>
@@ -45,7 +45,7 @@ export default function EvidenceSection({
 
       {/* Error State */}
       {status === 'error' && (
-        <div className="flex items-start gap-2.5 text-xs text-sev-critical-text p-4 border border-sev-critical-indicator/40 rounded-lg bg-sev-critical-bg shadow-2xs" role="alert">
+        <div className="flex items-start gap-2.5 text-xs text-sev-critical-text p-4 border border-sev-critical-indicator/40 bg-sev-critical-bg" role="alert">
           <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-sev-critical-indicator" aria-hidden="true" />
           <span>{errorMessage || `Failed to load ${title.toLowerCase()}.`}</span>
         </div>
@@ -53,7 +53,7 @@ export default function EvidenceSection({
 
       {/* Empty State */}
       {status === 'empty' && (
-        <div className="text-xs text-text-muted italic p-4 border border-border rounded-lg bg-surface-soft/60">
+        <div className="text-xs text-text-muted italic p-4 border border-dashed border-border-strong bg-surface-soft/60">
           {emptyMessage}
         </div>
       )}

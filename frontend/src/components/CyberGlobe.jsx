@@ -5,7 +5,7 @@ import { getSeverity } from '../lib/severity';
 import { SeverityLegend } from './ui/severity-badge';
 import { Globe2 } from 'lucide-react';
 
-const UNASSESSED_COLOR = '#858079'; // Neutral warm slate
+const UNASSESSED_COLOR = '#8C7A4E'; // Neutral brass
 
 export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
   const globeRef = useRef();
@@ -36,7 +36,7 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
         const isSelected = selectedEventId === event.event_id;
 
         const sev = risk ? getSeverity(risk.severity) : null;
-        const color = isSelected ? '#E56B3F' : (sev ? sev.hex : UNASSESSED_COLOR);
+        const color = isSelected ? '#B84A28' : (sev ? sev.hex : UNASSESSED_COLOR);
         const radius = isSelected ? 1.6 : (risk && risk.risk_score > 50 ? 1.3 : 0.85);
 
         return {
@@ -63,7 +63,7 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
         maxR: 3.5,
         propagationSpeed: 1.5,
         repeatPeriod: 1200,
-        color: p.id === selectedEventId ? '#E56B3F' : '#C83D3D',
+        color: p.id === selectedEventId ? '#B84A28' : '#C83D3D',
       }));
   }, [pointsData, selectedEventId]);
 
@@ -80,12 +80,12 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
   }, []);
 
   return (
-    <div className="bg-surface border border-border rounded-lg h-full flex flex-col overflow-hidden shadow-xs">
+    <div className="bg-surface border border-border h-full flex flex-col overflow-hidden shadow-xs">
       {/* Header with Title and Severity Legend */}
       <div className="px-4 py-3 border-b border-border flex items-center justify-between gap-3 bg-surface-elevated">
         <div className="flex items-center gap-2">
           <Globe2 className="w-4 h-4 text-brand-ember" aria-hidden="true" />
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-text-primary">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-text-primary font-heading">
             Geographic Activity Context
           </h3>
         </div>
@@ -99,7 +99,7 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
             ref={globeRef}
             width={dimensions.width}
             height={dimensions.height}
-            backgroundColor="rgba(247, 245, 242, 0)"
+            backgroundColor="rgba(246, 241, 228, 0)"
             globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
             showAtmosphere={false}
             pointsData={pointsData}
@@ -108,10 +108,10 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
             pointRadius="size"
             pointResolution={16}
             pointLabel={d => `
-              <div style="background:#FFFFFF; color:#181716; padding:8px 12px; border-radius:6px; border:1px solid #DDD8D0; font-family:sans-serif; font-size:11px; box-shadow:0 4px 12px rgba(0,0,0,0.08); pointer-events:none;">
-                <div style="font-weight:700; color:#181716; font-size:12px; margin-bottom:2px;">${d.user}</div>
-                <div style="font-family:monospace; color:#625E58; margin-bottom:4px;">${d.ip}</div>
-                <div style="display:inline-block; font-size:10px; font-weight:700; font-family:monospace; padding:2px 6px; border-radius:3px; background:${d.color}15; color:${d.color}; border:1px solid ${d.color}40;">
+              <div style="background:#FFFCF4; color:#23201B; padding:8px 12px; border-radius:4px; border:1px solid #DED2B4; font-family:sans-serif; font-size:11px; box-shadow:0 4px 12px rgba(23,21,18,0.12); pointer-events:none;">
+                <div style="font-weight:700; color:#23201B; font-size:12px; margin-bottom:2px;">${d.user}</div>
+                <div style="font-family:monospace; color:#5C5548; margin-bottom:4px;">${d.ip}</div>
+                <div style="display:inline-block; font-size:10px; font-weight:700; font-family:monospace; padding:2px 6px; border-radius:2px; background:${d.color}15; color:${d.color}; border:1px solid ${d.color}40;">
                   ${d.severity} · RISK ${d.score}
                 </div>
               </div>
@@ -119,8 +119,8 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
             ringsData={ringsData}
             ringColor={d => (t) => {
               const alpha = Math.max(0, 1 - t);
-              return d.color === '#E56B3F'
-                ? `rgba(229, 107, 63, ${alpha * 0.7})`
+              return d.color === '#B84A28'
+                ? `rgba(184, 74, 40, ${alpha * 0.7})`
                 : `rgba(200, 61, 61, ${alpha * 0.7})`;
             }}
             ringMaxRadius="maxR"
@@ -133,7 +133,7 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
         )}
 
         {/* Analytical Overlay Cue */}
-        <div className="absolute bottom-2.5 left-3 pointer-events-none bg-surface/90 backdrop-blur-xs px-2.5 py-1 rounded border border-border text-3xs text-text-muted font-mono">
+        <div className="absolute bottom-2.5 left-3 pointer-events-none bg-surface/90 backdrop-blur-xs px-2.5 py-1 rounded-sm border border-border text-3xs text-text-muted font-mono">
           Drag to rotate · Click node to inspect
         </div>
       </div>

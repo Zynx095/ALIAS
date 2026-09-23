@@ -138,13 +138,13 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
   };
 
   return (
-    <div className="bg-surface border border-border rounded-lg p-5 flex flex-col shadow-xs">
+    <div className="bg-surface border border-border rounded p-5 flex flex-col shadow-xs">
       {/* Console Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-border">
         <div>
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-brand-ember" aria-hidden="true" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-text-primary">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-text-primary font-heading">
               Demo Investigations
             </h3>
           </div>
@@ -159,7 +159,7 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
           onClick={handleResetClick}
           disabled={isResetting || anyRunning}
           className={cn(
-            "flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all outline-none",
+            "flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium transition-all outline-none",
             "focus-visible:ring-2 focus-visible:ring-focus shrink-0",
             resetArmed
               ? "bg-sev-critical-bg text-sev-critical-text border border-sev-critical-indicator shadow-xs font-semibold"
@@ -190,7 +190,7 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
             <div
               key={scen.scenario_id}
               className={cn(
-                "p-3.5 rounded-md border bg-surface flex flex-col justify-between gap-3 transition-all",
+                "p-3.5 rounded-sm border bg-surface flex flex-col justify-between gap-3 transition-all",
                 "hover:border-border-strong hover:bg-surface-elevated shadow-2xs",
                 isRunning && "border-brand-ember bg-brand-soft/20 ring-1 ring-brand-ember",
                 isCompleted && "border-sev-low-indicator/40 bg-sev-low-bg/10"

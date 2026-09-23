@@ -36,7 +36,7 @@ export default function InvestigationHistory({ onOpenInvestigation }) {
         <div>
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-brand-ember" aria-hidden="true" />
-            <h1 className="text-sm font-bold uppercase tracking-wider text-text-primary">
+            <h1 className="text-sm font-bold uppercase tracking-wider text-text-primary font-heading">
               Investigation Register
             </h1>
           </div>
@@ -50,7 +50,7 @@ export default function InvestigationHistory({ onOpenInvestigation }) {
           <label className="flex items-center gap-2 text-xs text-text-muted font-medium">
             <span>Filter Severity:</span>
             <select
-              className="bg-surface border border-border text-xs text-text-primary rounded-md px-2.5 py-1 outline-none focus-visible:ring-2 focus-visible:ring-focus font-medium"
+              className="bg-surface border border-border text-xs text-text-primary rounded-sm px-2.5 py-1 outline-none focus-visible:ring-2 focus-visible:ring-focus font-medium"
               value={severityFilter}
               onChange={e => setSeverityFilter(e.target.value)}
             >
@@ -67,7 +67,7 @@ export default function InvestigationHistory({ onOpenInvestigation }) {
       </div>
 
       {/* Main Register Body */}
-      <div className="flex-1 min-h-0 overflow-y-auto bg-surface border border-border rounded-lg shadow-xs">
+      <div className="flex-1 min-h-0 overflow-y-auto bg-surface border border-border shadow-xs">
         {state.status === 'loading' && (
           <div className="flex items-center justify-center h-48 text-text-muted text-xs gap-2" role="status">
             <Loader2 className="w-4 h-4 animate-spin text-brand-ember" aria-hidden="true" />

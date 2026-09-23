@@ -27,7 +27,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
         errorMessage="Failed to load event details."
       >
         {event && (
-          <div className="bg-surface border border-border rounded-lg p-5 shadow-xs">
+          <div className="bg-surface border border-border rounded p-5 shadow-xs">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-6 text-xs">
               <div className="flex flex-col gap-1">
                 <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">IP Address</span>
@@ -92,7 +92,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
       >
         <div className="space-y-3">
           {anomalies?.anomalies?.map(anom => (
-            <div key={anom.anomaly_id} className="p-4 border border-border bg-surface rounded-lg shadow-xs flex flex-col gap-2">
+            <div key={anom.anomaly_id} className="p-4 border border-border bg-surface rounded shadow-xs flex flex-col gap-2">
               <div className="flex justify-between items-start gap-3">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-brand-ember shrink-0" aria-hidden="true" />
@@ -135,9 +135,9 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
         emptyMessage="No risk assessment — no behavioral anomalies were detected for this event."
       >
         {risk && (
-          <div className="p-5 border border-border bg-surface rounded-lg shadow-xs flex flex-col gap-4">
+          <div className="p-5 border border-border bg-surface rounded shadow-xs flex flex-col gap-4">
             <div className="flex items-start gap-4">
-              <div className="flex flex-col items-center justify-center p-3 bg-surface-soft rounded-lg border border-border w-20 h-20 shrink-0">
+              <div className="flex flex-col items-center justify-center p-3 bg-surface-soft rounded border border-border w-20 h-20 shrink-0">
                 <span className={cn("text-2xl font-bold font-mono", getSeverity(risk.severity).text)}>
                   {risk.risk_score}
                 </span>
@@ -164,7 +164,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
                 </h5>
                 <div className="space-y-2">
                   {risk.correlation_factors.map((cf, i) => (
-                    <div key={cf.factor_id || i} className="flex items-start gap-2.5 p-2.5 rounded-md bg-surface-soft border border-border">
+                    <div key={cf.factor_id || i} className="flex items-start gap-2.5 p-2.5 rounded-sm bg-surface-soft border border-border">
                       <ArrowDown className="w-3.5 h-3.5 text-brand-ember mt-0.5 shrink-0" aria-hidden="true" />
                       <div className="text-xs">
                         <span className="font-semibold text-text-primary">{cf.name}</span>
@@ -195,7 +195,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
         emptyMessage="No AI investigation was triggered — risk did not meet the automated investigation threshold (risk score < 1)."
       >
         {report && (
-          <div className="p-5 border border-ai-indigo/30 bg-ai-soft/40 rounded-lg shadow-xs flex flex-col gap-4">
+          <div className="p-5 border border-ai-indigo/30 bg-ai-soft/40 rounded shadow-xs flex flex-col gap-4">
             {/* AI Top Header with Provider Badge */}
             <div className="flex justify-between items-center pb-3 border-b border-ai-indigo/20 gap-3 flex-wrap">
               <span className="text-xs text-ai-indigo font-mono font-bold flex items-center gap-1.5">

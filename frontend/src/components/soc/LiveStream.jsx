@@ -39,12 +39,12 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
   });
 
   return (
-    <div className="bg-surface border border-border rounded-lg flex flex-col h-full shadow-xs overflow-hidden">
+    <div className="bg-surface border border-border flex flex-col h-full shadow-xs overflow-hidden">
       {/* Feed Header */}
       <div className="px-4 py-3 border-b border-border flex justify-between items-center bg-surface-elevated">
         <div className="flex items-center gap-2">
           <Radio className="w-4 h-4 text-brand-ember" aria-hidden="true" />
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-text-primary">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-text-primary font-heading">
             Live Event Feed
           </h2>
         </div>
@@ -71,7 +71,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
       <div className="flex-1 overflow-y-auto p-3 space-y-2.5 bg-canvas/30" tabIndex={0} aria-label="Event stream list">
         <AnimatePresence>
           {filteredIds.length === 0 ? (
-            <div className="text-center text-text-muted text-xs mt-12 py-8 bg-surface border border-dashed border-border rounded-md mx-2">
+            <div className="text-center text-text-muted text-xs mt-12 py-8 bg-surface border border-dashed border-border mx-2">
               <Activity className="w-6 h-6 mx-auto mb-2 text-text-muted/60" aria-hidden="true" />
               {eventStream.length === 0
                 ? "Listening for live authentication telemetry..."
@@ -101,7 +101,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                   initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
-                    "p-3 rounded-md border bg-surface flex flex-col gap-2 cursor-pointer transition-all outline-none shadow-2xs",
+                    "p-3 rounded-sm border bg-surface flex flex-col gap-2 cursor-pointer transition-all outline-none shadow-2xs",
                     "hover:bg-surface-elevated hover:border-border-strong",
                     "focus-visible:ring-2 focus-visible:ring-focus",
                     isCritical

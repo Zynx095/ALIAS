@@ -26,7 +26,7 @@ export function RiskScore({ score = 0, severity, size = 'default', className }) 
   return (
     <div
       className={cn(
-        "flex flex-col rounded-md border border-border bg-surface p-3 transition-colors",
+        "flex flex-col rounded border border-border bg-surface p-3 transition-colors",
         isLarge && "p-4 min-w-[220px]",
         className
       )}
@@ -59,10 +59,10 @@ export function RiskScore({ score = 0, severity, size = 'default', className }) 
         <span className="text-xs text-text-muted font-normal">/ 100</span>
       </div>
 
-      {/* Clean Horizontal Meter Track */}
-      <div className="h-2 w-full bg-surface-soft border border-border rounded-full overflow-hidden relative">
+      {/* Ledger-style ruled meter track */}
+      <div className="h-2 w-full bg-surface-soft border border-border rounded-sm overflow-hidden relative">
         <div
-          className="h-full rounded-full transition-all duration-300 ease-out"
+          className="h-full rounded-sm transition-all duration-300 ease-out"
           style={{
             width: `${Math.max(clampedScore, 2)}%`,
             backgroundColor: s.indicator,

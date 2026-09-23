@@ -34,7 +34,7 @@ export default function Overview({ onOpenInvestigation }) {
       <section className="flex flex-col gap-3">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-border pb-3">
           <div>
-            <h1 className="text-sm font-bold uppercase tracking-wider text-text-primary">
+            <h1 className="text-sm font-bold uppercase tracking-wider text-text-primary font-heading">
               Security Overview
             </h1>
             <p className="text-xs text-text-secondary mt-0.5">
@@ -47,9 +47,9 @@ export default function Overview({ onOpenInvestigation }) {
         </div>
 
         {/* Compact Horizontal Activity Summary Bar (Not a grid of identical cards) */}
-        <div className="bg-surface border border-border rounded-lg px-6 py-3.5 flex items-center justify-between gap-4 shadow-xs flex-wrap">
+        <div className="bg-surface border border-border px-6 py-3.5 flex items-center justify-between gap-4 shadow-xs flex-wrap">
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-md bg-surface-soft border border-border flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-sm bg-surface-soft border border-border flex items-center justify-center shrink-0">
               <Users className="w-4 h-4 text-text-secondary" aria-hidden="true" />
             </span>
             <div className="flex flex-col">
@@ -65,7 +65,7 @@ export default function Overview({ onOpenInvestigation }) {
           <div className="hidden sm:block h-8 w-[1px] bg-border" aria-hidden="true" />
 
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-md bg-surface-soft border border-border flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-sm bg-surface-soft border border-border flex items-center justify-center shrink-0">
               <Activity className="w-4 h-4 text-sev-high-indicator" aria-hidden="true" />
             </span>
             <div className="flex flex-col">
@@ -81,7 +81,7 @@ export default function Overview({ onOpenInvestigation }) {
           <div className="hidden sm:block h-8 w-[1px] bg-border" aria-hidden="true" />
 
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-md bg-sev-critical-bg border border-sev-critical-indicator/30 flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-sm bg-sev-critical-bg border border-sev-critical-indicator/30 flex items-center justify-center shrink-0">
               <ShieldAlert className="w-4 h-4 text-sev-critical-indicator" aria-hidden="true" />
             </span>
             <div className="flex flex-col">
@@ -97,7 +97,7 @@ export default function Overview({ onOpenInvestigation }) {
           <div className="hidden sm:block h-8 w-[1px] bg-border" aria-hidden="true" />
 
           <div className="flex items-center gap-3">
-            <span className="w-8 h-8 rounded-md bg-ai-soft border border-ai-indigo/30 flex items-center justify-center shrink-0">
+            <span className="w-8 h-8 rounded-sm bg-ai-soft border border-ai-indigo/30 flex items-center justify-center shrink-0">
               <Sparkles className="w-4 h-4 text-ai-indigo" aria-hidden="true" />
             </span>
             <div className="flex flex-col">
