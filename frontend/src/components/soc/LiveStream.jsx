@@ -61,7 +61,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
             <option value="MODERATE">Moderate</option>
             <option value="LOW">Low</option>
           </select>
-          <span className="text-[11px] text-text-muted font-mono bg-surface-soft px-2 py-0.5 rounded border border-border">
+          <span className="text-2xs text-text-muted font-mono bg-surface-soft px-2 py-0.5 rounded border border-border">
             {filteredIds.length} Stream{filteredIds.length === 1 ? '' : 's'}
           </span>
         </div>
@@ -105,9 +105,9 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                     "hover:bg-surface-elevated hover:border-border-strong",
                     "focus-visible:ring-2 focus-visible:ring-focus",
                     isCritical
-                      ? "border-l-4 border-l-sev-critical-indicator border-border bg-sev-critical-bg/15"
+                      ? "border-sev-critical-indicator/40 bg-sev-critical-bg/15"
                       : "border-border",
-                    isSelected && "border-l-4 border-l-brand-ember ring-1 ring-brand-ember bg-brand-soft/20"
+                    isSelected && "border-brand-ember ring-1 ring-brand-ember bg-brand-soft/20"
                   )}
                   onClick={() => onSelectEvent(id)}
                   onKeyDown={(e) => {
@@ -126,7 +126,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                       <span className="text-xs font-bold text-text-primary tracking-tight truncate">
                         {login.user_id}
                       </span>
-                      <span className="text-[10px] text-text-muted font-mono shrink-0">
+                      <span className="text-3xs text-text-muted font-mono shrink-0">
                         {new Date(login.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' })}
                       </span>
                     </div>
@@ -134,7 +134,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                     {risk ? (
                       <SeverityBadge severity={risk.severity} showScore score={risk.risk_score} />
                     ) : (
-                      <span className="text-[10px] font-mono text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
+                      <span className="text-3xs font-mono text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
                         INGESTED
                       </span>
                     )}
@@ -146,7 +146,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                   </p>
 
                   {/* Telemetry Metadata */}
-                  <div className="text-[11px] text-text-muted flex items-center gap-3 flex-wrap">
+                  <div className="text-2xs text-text-muted flex items-center gap-3 flex-wrap">
                     <span className="flex items-center gap-1 font-mono">
                       <MapPin className="w-3 h-3 text-text-muted shrink-0" aria-hidden="true" />
                       {login.ip_address}
@@ -159,7 +159,7 @@ export default function LiveStream({ onSelectEvent, selectedEventId }) {
                   </div>
 
                   {/* Pipeline Lifecycle Indicator */}
-                  <div className="pt-2 mt-1 border-t border-border/60 flex items-center gap-1.5 text-[9px] uppercase font-mono tracking-wider">
+                  <div className="pt-2 mt-1 border-t border-border/60 flex items-center gap-1.5 text-3xs uppercase font-mono tracking-wider">
                     <span className="text-text-muted font-semibold">Ingested</span>
                     <ArrowRight className="w-2.5 h-2.5 text-text-muted/50" aria-hidden="true" />
 

@@ -199,10 +199,10 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
               <div>
                 {/* Top Number + Expected Severity */}
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-mono font-bold text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
+                  <span className="text-3xs font-mono font-bold text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
                     [{meta.index}]
                   </span>
-                  <SeverityBadge severity={meta.defaultSev} className="text-[9px] px-1.5 py-0.2" />
+                  <SeverityBadge severity={meta.defaultSev} className="text-3xs px-1.5 py-0.2" />
                 </div>
 
                 {/* Scenario Title */}
@@ -211,7 +211,7 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
                 </h4>
 
                 {/* Subtitle / Deviation */}
-                <p className="text-[11px] text-text-secondary leading-snug mt-1">
+                <p className="text-2xs text-text-secondary leading-snug mt-1">
                   {meta.subtitle}
                 </p>
               </div>
@@ -220,23 +220,23 @@ export default function ScenarioConsole({ onOpenInvestigation }) {
               <div className="pt-2 border-t border-border/60">
                 {isRunning ? (
                   <div className="flex items-center justify-between text-xs text-brand-ember font-mono py-1 px-2 rounded bg-brand-soft border border-brand-ember/30">
-                    <span className="flex items-center gap-1.5 text-[11px] font-semibold">
+                    <span className="flex items-center gap-1.5 text-2xs font-semibold">
                       <Loader2 className="w-3 h-3 animate-spin shrink-0" aria-hidden="true" />
                       Running
                     </span>
-                    <span className="text-[10px]">{elapsedSec}s</span>
+                    <span className="text-3xs">{elapsedSec}s</span>
                   </div>
                 ) : isCompleted ? (
                   <button
                     type="button"
                     onClick={() => onOpenInvestigation(run.targetEventId, 'overview')}
-                    className="w-full flex items-center justify-center gap-1 py-1.5 px-2 rounded text-[11px] font-semibold text-text-primary bg-surface-soft border border-border hover:bg-brand-soft hover:border-brand-ember hover:text-brand-ember transition-colors outline-none focus-visible:ring-2 focus-visible:ring-focus"
+                    className="w-full flex items-center justify-center gap-1 py-1.5 px-2 rounded text-2xs font-semibold text-text-primary bg-surface-soft border border-border hover:bg-brand-soft hover:border-brand-ember hover:text-brand-ember transition-colors outline-none focus-visible:ring-2 focus-visible:ring-focus"
                   >
                     <span>Inspect</span>
                     <ArrowRight className="w-3 h-3" aria-hidden="true" />
                   </button>
                 ) : isFailed ? (
-                  <div className="flex items-center gap-1 text-[11px] text-sev-critical-text py-1">
+                  <div className="flex items-center gap-1 text-2xs text-sev-critical-text py-1">
                     <XCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                     <span className="truncate">{run.error || 'Failed'}</span>
                   </div>

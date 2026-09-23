@@ -133,7 +133,7 @@ export default function CyberGlobe({ onSelectEvent, selectedEventId }) {
         )}
 
         {/* Analytical Overlay Cue */}
-        <div className="absolute bottom-2.5 left-3 pointer-events-none bg-surface/90 backdrop-blur-xs px-2.5 py-1 rounded border border-border text-[10px] text-text-muted font-mono">
+        <div className="absolute bottom-2.5 left-3 pointer-events-none bg-surface/90 backdrop-blur-xs px-2.5 py-1 rounded border border-border text-3xs text-text-muted font-mono">
           Drag to rotate · Click node to inspect
         </div>
       </div>

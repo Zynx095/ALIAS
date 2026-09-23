@@ -21,7 +21,7 @@ export default function EvidenceSection({
       {/* Stage Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1">
         <div className="flex items-center gap-2.5">
-          <span className={cn("text-[11px] font-mono font-bold px-2 py-0.5 rounded border", numberBg)}>
+          <span className={cn("text-2xs font-mono font-bold px-2 py-0.5 rounded border", numberBg)}>
             {String(number).padStart(2, '0')}
           </span>
           <h2 id={`evidence-${number}`} className="text-xs font-bold uppercase tracking-wider text-text-primary">
@@ -29,7 +29,7 @@ export default function EvidenceSection({
           </h2>
         </div>
         {subtitle && (
-          <p className="text-[11px] text-text-muted">
+          <p className="text-2xs text-text-muted">
             {subtitle}
           </p>
         )}

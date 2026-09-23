@@ -28,13 +28,13 @@ export default function MainLayout({ children, activeView, setView, title, viewK
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-tight text-text-primary leading-none">ALIAS</span>
-                <span className="text-[10px] font-mono tracking-wider uppercase text-text-muted mt-0.5">Security Intelligence</span>
+                <span className="text-3xs font-mono tracking-wider uppercase text-text-muted mt-0.5">Security Intelligence</span>
               </div>
             </div>
           </div>
 
           <div className="px-5 py-3 border-b border-border bg-surface-elevated/50">
-            <p className="text-[11px] leading-relaxed text-text-secondary">
+            <p className="text-2xs leading-relaxed text-text-secondary">
               AI-assisted Login Investigation
             </p>
           </div>
@@ -60,7 +60,7 @@ export default function MainLayout({ children, activeView, setView, title, viewK
                   <item.icon className={cn("w-4 h-4 shrink-0", active ? "text-brand-ember" : "text-text-muted")} aria-hidden="true" />
                   <span>{item.label}</span>
                   {item.badge && (
-                    <span className="ml-auto text-[9px] font-mono uppercase px-1.5 py-0.5 rounded bg-brand-soft text-brand-ember border border-brand-ember/30 font-bold">
+                    <span className="ml-auto text-3xs font-mono uppercase px-1.5 py-0.5 rounded bg-brand-soft text-brand-ember border border-brand-ember/30 font-bold">
                       {item.badge}
                     </span>
                   )}
@@ -72,13 +72,13 @@ export default function MainLayout({ children, activeView, setView, title, viewK
 
         {/* System Status Block (Restrained, no neon/cyberpunk) */}
         <div className="p-4 border-t border-border bg-surface-elevated">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-text-muted font-semibold mb-1.5">
+          <div className="text-3xs font-mono uppercase tracking-widest text-text-muted font-semibold mb-1.5">
             System Status
           </div>
           <div className="flex items-center gap-2 text-xs font-medium text-text-primary">
             <span className="w-2 h-2 rounded-full bg-sev-low-indicator shrink-0" aria-hidden="true" />
             <span>Operational</span>
-            <span className="text-[10px] text-text-muted ml-auto font-mono">v1.2</span>
+            <span className="text-3xs text-text-muted ml-auto font-mono">v1.2</span>
           </div>
         </div>
       </aside>
@@ -95,7 +95,7 @@ export default function MainLayout({ children, activeView, setView, title, viewK
             <span className="text-xs font-medium text-text-secondary whitespace-nowrap">
               {title || (activeView === 'investigations' ? 'Forensic Investigations' : 'Security Intelligence Workspace')}
             </span>
-            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-soft text-text-muted border border-border text-[10px] tracking-wider uppercase shrink-0 font-mono">
+            <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-soft text-text-muted border border-border text-3xs tracking-wider uppercase shrink-0 font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-ember" aria-hidden="true" />
               Synthetic Telemetry
             </div>
@@ -107,7 +107,7 @@ export default function MainLayout({ children, activeView, setView, title, viewK
             role="status"
             aria-label={isLive ? 'Live alert gateway connected' : 'Alert gateway disconnected (reconnecting)'}
           >
-            <span className="text-[10px] font-bold tracking-wider text-text-muted uppercase">LIVE</span>
+            <span className="text-3xs font-bold tracking-wider text-text-muted uppercase">LIVE</span>
             <span
               className={cn(
                 "w-2 h-2 rounded-full",

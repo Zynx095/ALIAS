@@ -30,17 +30,17 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
           <div className="bg-surface border border-border rounded-lg p-5 shadow-xs">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-6 text-xs">
               <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">IP Address</span>
+                <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">IP Address</span>
                 <span className="font-mono text-sm font-semibold text-text-primary">{event.ip_address}</span>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Resolved Location</span>
+                <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Resolved Location</span>
                 <span className="text-sm font-medium text-text-primary">{event.location || 'Unknown Region'}</span>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Authentication Result</span>
+                <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Authentication Result</span>
                 <span className={cn(
                   "font-mono font-bold text-xs inline-flex items-center gap-1.5 px-2 py-0.5 rounded w-fit",
                   event.auth_status === 'SUCCESS' ? "bg-sev-low-bg text-sev-low-text border border-sev-low-indicator/30" : "bg-sev-critical-bg text-sev-critical-text border border-sev-critical-indicator/30"
@@ -51,27 +51,27 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Access Route</span>
+                <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Access Route</span>
                 <span className="font-mono text-xs font-medium text-text-primary">{event.access_pattern || 'DIRECT'}</span>
               </div>
 
               {event.device_fingerprint && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Device Identifier</span>
+                  <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Device Identifier</span>
                   <span className="font-mono text-xs text-text-secondary truncate">{event.device_fingerprint}</span>
                 </div>
               )}
 
               {event.failed_attempts > 0 && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Prior Failed Attempts</span>
+                  <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Prior Failed Attempts</span>
                   <span className="font-mono font-bold text-sev-critical-text">{event.failed_attempts} attempt{event.failed_attempts === 1 ? '' : 's'}</span>
                 </div>
               )}
 
               <div className="flex flex-col gap-1 md:col-span-2 lg:col-span-3 pt-2 border-t border-border/60">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">Client User Agent</span>
-                <span className="font-mono text-[11px] text-text-secondary break-all bg-surface-soft p-2 rounded border border-border">
+                <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">Client User Agent</span>
+                <span className="font-mono text-2xs text-text-secondary break-all bg-surface-soft p-2 rounded border border-border">
                   {event.user_agent || 'Unknown UA Header'}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
                     {anom.anomaly_type}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border shrink-0">
+                <span className="text-3xs font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border shrink-0">
                   {anom.rule_id}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
                 {anom.explanation}
               </p>
 
-              <div className="mt-1 pt-2 border-t border-border/60 text-[11px] grid grid-cols-1 sm:grid-cols-2 gap-2 bg-surface-soft/50 p-2.5 rounded border border-border/40 font-mono">
+              <div className="mt-1 pt-2 border-t border-border/60 text-2xs grid grid-cols-1 sm:grid-cols-2 gap-2 bg-surface-soft/50 p-2.5 rounded border border-border/40 font-mono">
                 <div>
                   <span className="text-text-muted">Observed Value: </span>
                   <span className="font-semibold text-text-primary">{anom.observed_value}</span>
@@ -141,7 +141,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
                 <span className={cn("text-2xl font-bold font-mono", getSeverity(risk.severity).text)}>
                   {risk.risk_score}
                 </span>
-                <span className={cn("text-[9px] font-mono font-bold uppercase", getSeverity(risk.severity).text)}>
+                <span className={cn("text-3xs font-mono font-bold uppercase", getSeverity(risk.severity).text)}>
                   {risk.severity}
                 </span>
               </div>
@@ -159,7 +159,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
             {/* Correlation Factors Chain */}
             {risk.correlation_factors?.length > 0 && (
               <div className="pt-3 border-t border-border">
-                <h5 className="text-[10px] font-mono uppercase tracking-widest text-text-muted font-bold mb-2">
+                <h5 className="text-3xs font-mono uppercase tracking-widest text-text-muted font-bold mb-2">
                   Correlation Chain Factors
                 </h5>
                 <div className="space-y-2">
@@ -168,9 +168,9 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
                       <ArrowDown className="w-3.5 h-3.5 text-brand-ember mt-0.5 shrink-0" aria-hidden="true" />
                       <div className="text-xs">
                         <span className="font-semibold text-text-primary">{cf.name}</span>
-                        {cf.description && <p className="text-text-secondary text-[11px] mt-0.5">{cf.description}</p>}
+                        {cf.description && <p className="text-text-secondary text-2xs mt-0.5">{cf.description}</p>}
                         {cf.related_anomaly_ids?.length > 0 && (
-                          <span className="text-[10px] font-mono text-text-muted mt-1 inline-block">
+                          <span className="text-3xs font-mono text-text-muted mt-1 inline-block">
                             Correlates {cf.related_anomaly_ids.length} anomaly finding{cf.related_anomaly_ids.length === 1 ? '' : 's'}
                           </span>
                         )}
@@ -217,7 +217,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
 
               {report.recommendations?.length > 0 && (
                 <div className="mt-3 pt-3 border-t border-ai-indigo/15">
-                  <strong className="text-[10px] font-mono uppercase tracking-wider text-ai-indigo block mb-2">
+                  <strong className="text-3xs font-mono uppercase tracking-wider text-ai-indigo block mb-2">
                     Recommended Security Actions:
                   </strong>
                   <ul className="space-y-1.5 text-xs list-disc pl-4 text-text-secondary">
@@ -230,7 +230,7 @@ export default function InvestigationDetail({ eventState, anomaliesState, riskSt
             </div>
 
             {/* AI Mandatory Legal/Technical Disclaimer */}
-            <div className="pt-3 border-t border-ai-indigo/20 text-[10px] text-text-muted leading-relaxed font-mono">
+            <div className="pt-3 border-t border-ai-indigo/20 text-3xs text-text-muted leading-relaxed font-mono">
               Notice: AI interpretations are generated exclusively from the deterministic baseline anomalies and correlated risk factors established above. The AI layer does not calculate risk scores or declare compromise verdicts independently.
             </div>
           </div>

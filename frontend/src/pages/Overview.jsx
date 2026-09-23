@@ -41,7 +41,7 @@ export default function Overview({ onOpenInvestigation }) {
               Real-time identity activity and behavioral risk
             </p>
           </div>
-          <span className="text-[11px] font-mono text-text-muted">
+          <span className="text-2xs font-mono text-text-muted">
             Telemetry Gateway: ACTIVE
           </span>
         </div>
@@ -56,7 +56,7 @@ export default function Overview({ onOpenInvestigation }) {
               <span className="text-lg font-bold tabular-nums text-text-primary leading-tight font-mono">
                 {totalEvents}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">
+              <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">
                 Logins Analyzed
               </span>
             </div>
@@ -72,7 +72,7 @@ export default function Overview({ onOpenInvestigation }) {
               <span className="text-lg font-bold tabular-nums text-text-primary leading-tight font-mono">
                 {totalAnomalies}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">
+              <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">
                 Anomalies Detected
               </span>
             </div>
@@ -88,7 +88,7 @@ export default function Overview({ onOpenInvestigation }) {
               <span className="text-lg font-bold tabular-nums text-sev-critical-text leading-tight font-mono">
                 {criticalRisks}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">
+              <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">
                 Critical Risks
               </span>
             </div>
@@ -104,7 +104,7 @@ export default function Overview({ onOpenInvestigation }) {
               <span className="text-lg font-bold tabular-nums text-ai-indigo leading-tight font-mono">
                 {investigations}
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted">
+              <span className="text-3xs font-mono uppercase tracking-wider text-text-muted">
                 AI Investigations
               </span>
             </div>

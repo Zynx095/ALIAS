@@ -121,7 +121,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-ember font-bold bg-brand-soft px-2 py-0.5 rounded border border-brand-ember/30">
+            <span className="text-3xs font-mono uppercase tracking-widest text-brand-ember font-bold bg-brand-soft px-2 py-0.5 rounded border border-brand-ember/30">
               Protected Application
             </span>
             <span className="text-text-muted text-xs">/</span>
@@ -156,11 +156,11 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
           {/* Quick Preset Selector for Judges */}
           <div className="bg-surface border border-border rounded-lg p-4 shadow-xs">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted font-bold flex items-center gap-1.5">
+              <span className="text-3xs font-mono uppercase tracking-wider text-text-muted font-bold flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-brand-ember" />
 Choose Identity Preset
               </span>
-              <span className="text-[10px] text-text-muted font-mono">1-click credentials</span>
+              <span className="text-3xs text-text-muted font-mono">1-click credentials</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -180,8 +180,8 @@ Choose Identity Preset
                     )}
                   >
                     <span className="text-xs font-bold text-text-primary truncate">{u.name}</span>
-                    <span className="text-[11px] font-mono text-text-secondary truncate">{u.email}</span>
-                    <span className="text-[10px] text-brand-ember font-medium mt-1">{u.role}</span>
+                    <span className="text-2xs font-mono text-text-secondary truncate">{u.email}</span>
+                    <span className="text-3xs text-brand-ember font-medium mt-1">{u.role}</span>
                   </button>
                 );
               })}
@@ -197,7 +197,7 @@ Choose Identity Preset
                   Authentication Interface
                 </h2>
               </div>
-              <span className="text-[10px] font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
+              <span className="text-3xs font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
                 TLS Encrypted
               </span>
             </div>
@@ -279,7 +279,7 @@ Choose Identity Preset
                       type="button"
                       onClick={handleRetry}
                       disabled={loading}
-                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold underline hover:no-underline"
+                      className="mt-2 inline-flex items-center gap-1 text-2xs font-semibold underline hover:no-underline"
                     >
                       Retry
                     </button>
@@ -288,7 +288,7 @@ Choose Identity Preset
               </div>
             )}
 
-            <div className="text-[11px] text-text-muted font-mono leading-relaxed bg-surface-soft p-3 rounded-md border border-border">
+            <div className="text-2xs text-text-muted font-mono leading-relaxed bg-surface-soft p-3 rounded-md border border-border">
               <strong>Judge Demo Guide:</strong> Click <em>"Submit (Wrong Password)"</em> 3-4 times to simulate a brute-force credential stuffing burst. Then click <em>"Submit (Correct Password)"</em> to simulate a successful compromise, and observe the ALIAS behavioral pipeline synthesize the full incident.
             </div>
           </div>
@@ -306,10 +306,10 @@ Choose Identity Preset
                   Location Changer
                 </h3>
               </div>
-              <span className="text-[10px] text-text-muted font-mono">Geo Simulation</span>
+              <span className="text-3xs text-text-muted font-mono">Geo Simulation</span>
             </div>
 
-            <p className="text-[11px] text-text-secondary leading-snug">
+            <p className="text-2xs text-text-secondary leading-snug">
               Select origin to test location anomalies and <strong>Impossible Travel</strong> velocity:
             </p>
 
@@ -333,11 +333,11 @@ Choose Identity Preset
                       <span className="text-base shrink-0">{loc.flag}</span>
                       <div className="flex flex-col min-w-0">
                         <span className="text-text-primary truncate">{loc.name}</span>
-                        <span className="text-[10px] text-text-muted font-mono truncate">{loc.ip_address}</span>
+                        <span className="text-3xs text-text-muted font-mono truncate">{loc.ip_address}</span>
                       </div>
                     </div>
 
-                    <span className="text-[10px] font-mono text-text-muted shrink-0">
+                    <span className="text-3xs font-mono text-text-muted shrink-0">
                       {loc.latitude.toFixed(1)}, {loc.longitude.toFixed(1)}
                     </span>
                   </button>
@@ -355,7 +355,7 @@ Choose Identity Preset
                   Device Profile
                 </h3>
               </div>
-              <span className="text-[10px] text-text-muted font-mono">Hardware Telemetry</span>
+              <span className="text-3xs text-text-muted font-mono">Hardware Telemetry</span>
             </div>
 
             <div className="space-y-2">
@@ -377,7 +377,7 @@ Choose Identity Preset
                     {dev.key.includes('laptop') ? <Laptop className="w-4 h-4 text-text-muted" /> : <Smartphone className="w-4 h-4 text-text-muted" />}
                     <div className="flex flex-col min-w-0">
                       <span className="text-text-primary truncate">{dev.name}</span>
-                      <span className="text-[10px] text-text-muted font-mono truncate">{dev.fingerprint}</span>
+                      <span className="text-3xs text-text-muted font-mono truncate">{dev.fingerprint}</span>
                     </div>
                   </button>
                 );
@@ -399,7 +399,7 @@ Choose Identity Preset
               </h3>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono text-text-muted">Event ID:</span>
+              <span className="text-2xs font-mono text-text-muted">Event ID:</span>
               <span className="text-xs font-mono font-bold text-text-primary bg-surface-soft px-2 py-0.5 rounded border border-border">
                 EVT-{lastResult.event_id}
               </span>
@@ -408,7 +408,7 @@ Choose Identity Preset
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
             <div className="p-3 rounded bg-surface-soft border border-border flex flex-col gap-1">
-              <span className="text-[10px] text-text-muted uppercase">Auth Result</span>
+              <span className="text-3xs text-text-muted uppercase">Auth Result</span>
               <span className={cn(
                 "font-bold text-sm",
                 lastResult.auth_status === 'SUCCESS' ? "text-sev-low-text" : "text-sev-critical-text"
@@ -418,21 +418,21 @@ Choose Identity Preset
             </div>
 
             <div className="p-3 rounded bg-surface-soft border border-border flex flex-col gap-1">
-              <span className="text-[10px] text-text-muted uppercase">Consecutive Failures</span>
+              <span className="text-3xs text-text-muted uppercase">Consecutive Failures</span>
               <span className="font-bold text-sm text-text-primary">
                 {lastResult.failed_attempts} attempt{lastResult.failed_attempts === 1 ? '' : 's'}
               </span>
             </div>
 
             <div className="p-3 rounded bg-surface-soft border border-border flex flex-col gap-1">
-              <span className="text-[10px] text-text-muted uppercase">Location Telemetry</span>
+              <span className="text-3xs text-text-muted uppercase">Location Telemetry</span>
               <span className="font-bold text-sm text-text-primary truncate">
                 {lastResult.location}
               </span>
             </div>
 
             <div className="p-3 rounded bg-surface-soft border border-border flex flex-col gap-1">
-              <span className="text-[10px] text-text-muted uppercase">IP Address</span>
+              <span className="text-3xs text-text-muted uppercase">IP Address</span>
               <span className="font-bold text-sm text-text-primary truncate">
                 {lastResult.ip_address}
               </span>
@@ -440,7 +440,7 @@ Choose Identity Preset
           </div>
 
           <div className="flex items-center justify-between pt-2 flex-wrap gap-3">
-            <span className="text-[10px] font-mono text-text-muted">
+            <span className="text-3xs font-mono text-text-muted">
               Telemetry successfully delivered to ALIAS via POST /api/events/login (Zero credential leakage).
             </span>
 
@@ -491,12 +491,12 @@ Choose Identity Preset
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <span className="text-text-muted font-sans text-[11px]">{att.location}</span>
-                  <span className="text-[10px] text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
+                  <span className="text-text-muted font-sans text-2xs">{att.location}</span>
+                  <span className="text-3xs text-text-muted bg-surface-soft px-1.5 py-0.5 rounded border border-border">
                     Failures: {att.failedCount}
                   </span>
                   <span className={cn(
-                    "text-[10px] font-bold px-2 py-0.5 rounded uppercase",
+                    "text-3xs font-bold px-2 py-0.5 rounded uppercase",
                     att.status === 'SUCCESS' ? "bg-sev-low-bg text-sev-low-text" : "bg-sev-critical-bg text-sev-critical-text"
                   )}>
                     {att.status}

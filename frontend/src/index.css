@@ -132,6 +132,13 @@
   --radius-sm: 3px;
   --radius-md: 6px;
   --radius-lg: 8px;
+
+  /* Type scale — metadata/label sizes below Tailwind's text-xs floor.
+     Used instead of arbitrary text-[Npx] values. */
+  --text-2xs: 0.6875rem;      /* 11px — secondary metadata */
+  --text-2xs--line-height: 1rem;
+  --text-3xs: 0.625rem;       /* 10px — tertiary labels, tags */
+  --text-3xs--line-height: 0.875rem;
 }
 
 :root {

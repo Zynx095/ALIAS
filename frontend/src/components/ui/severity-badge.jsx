@@ -92,7 +92,7 @@ export function SeverityLegend({ className }) {
         const s = getSeverity(level);
         const Icon = s.icon;
         return (
-          <span key={level} className="flex items-center gap-1.5 text-[11px] text-text-muted font-mono">
+          <span key={level} className="flex items-center gap-1.5 text-2xs text-text-muted font-mono">
             {Icon && <Icon className="w-3 h-3" style={{ color: s.indicator }} aria-hidden="true" />}
             <span>{s.label}</span>
           </span>

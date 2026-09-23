@@ -60,7 +60,7 @@ export default function InvestigationHistory({ onOpenInvestigation }) {
               ))}
             </select>
           </label>
-          <span className="text-[11px] font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
+          <span className="text-2xs font-mono text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
             {rows.length} Record{rows.length === 1 ? '' : 's'}
           </span>
         </div>
@@ -107,10 +107,10 @@ export default function InvestigationHistory({ onOpenInvestigation }) {
                       <span className="text-xs font-bold text-text-primary tracking-tight">
                         {inv.user_id}
                       </span>
-                      <span className="text-[11px] text-text-muted font-mono bg-surface-soft px-1.5 py-0.2 rounded border border-border">
+                      <span className="text-2xs text-text-muted font-mono bg-surface-soft px-1.5 py-0.2 rounded border border-border">
                         EVT-{inv.event_id}
                       </span>
-                      <span className="text-[10px] text-text-muted font-mono">
+                      <span className="text-3xs text-text-muted font-mono">
                         {new Date(inv.created_at).toUTCString()}
                       </span>
                     </div>

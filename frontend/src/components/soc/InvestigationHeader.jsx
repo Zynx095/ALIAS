@@ -24,7 +24,7 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
           <span>← {backLabel}</span>
         </button>
 
-        <span className="text-[10px] font-mono uppercase tracking-widest text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
+        <span className="text-3xs font-mono uppercase tracking-widest text-text-muted bg-surface-soft px-2 py-0.5 rounded border border-border">
           Forensic Telemetry Dossier
         </span>
       </div>
@@ -33,7 +33,7 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-ember font-bold">
+            <span className="text-3xs font-mono uppercase tracking-widest text-brand-ember font-bold">
               Investigation Target
             </span>
             {event && (
@@ -71,13 +71,13 @@ export default function InvestigationHeader({ eventState, riskState, onBack, ori
                 </span>
 
                 {event.device_fingerprint && (
-                  <span className="flex items-center gap-1.5 font-mono text-[11px] text-text-muted">
+                  <span className="flex items-center gap-1.5 font-mono text-2xs text-text-muted">
                     <Smartphone className="w-3.5 h-3.5 text-text-muted shrink-0" aria-hidden="true" />
                     <span>{event.device_fingerprint}</span>
                   </span>
                 )}
 
-                <span className="text-[11px] font-mono text-text-muted">
+                <span className="text-2xs font-mono text-text-muted">
                   {new Date(event.timestamp).toUTCString()}
                 </span>
               </div>

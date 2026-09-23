@@ -37,12 +37,12 @@ export function RiskScore({ score = 0, severity, size = 'default', className }) 
       aria-label={`Risk score: ${clampedScore.toFixed(0)} out of 100, severity ${s.label}`}
     >
       <div className="flex justify-between items-center mb-1.5">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-text-muted font-semibold">
+        <span className="text-3xs font-mono uppercase tracking-widest text-text-muted font-semibold">
           Risk Score
         </span>
         <span
           className={cn(
-            "text-[11px] font-mono font-bold tracking-wider uppercase px-1.5 py-0.5 rounded",
+            "text-2xs font-mono font-bold tracking-wider uppercase px-1.5 py-0.5 rounded",
             s.bg,
             s.text,
             "border border-border"
