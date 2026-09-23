@@ -33,6 +33,8 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
   const [loading, setLoading] = useState(false);
   const [lastResult, setLastResult] = useState(null);
   const [recentAttempts, setRecentAttempts] = useState([]);
+  const [error, setError] = useState(null);
+  const [pendingAttempt, setPendingAttempt] = useState(null);
 
   // Load portal configuration & demo users
   useEffect(() => {
@@ -56,6 +58,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
   // Submit login with custom password override
   const handleAttempt = async (passwordToSubmit, attemptLabel) => {
     setLoading(true);
+    setError(null);
     try {
       const res = await submitPortalLogin({
         username,
@@ -65,6 +68,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
       });
 
       setLastResult(res);
+      setPendingAttempt(null);
       setRecentAttempts(prev => [
         {
           id: res.event_id || Date.now(),
@@ -80,18 +84,31 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
       ]);
     } catch (err) {
       console.error('[ALIAS Portal] Submission failed:', err);
+      setError('Unable to reach ALIAS telemetry pipeline. The portal is still usable, but this attempt was not recorded.');
+      setPendingAttempt({ passwordToSubmit, attemptLabel });
     } finally {
       setLoading(false);
     }
   };
 
+  const handleRetry = () => {
+    if (pendingAttempt) {
+      handleAttempt(pendingAttempt.passwordToSubmit, pendingAttempt.attemptLabel);
+    }
+  };
+
   const handleResetCounters = async () => {
+    if (!window.confirm('Reset all demo counters and clear the activity ledger? This cannot be undone.')) {
+      return;
+    }
+    setError(null);
     try {
       await resetPortalCounters();
       setLastResult(null);
       setRecentAttempts([]);
     } catch (err) {
-      console.error(err);
+      console.error('[ALIAS Portal] Reset failed:', err);
+      setError('Unable to reset demo state — the backend did not respond.');
     }
   };
 
@@ -141,7 +158,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
             <div className="flex items-center justify-between mb-3">
               <span className="text-[10px] font-mono uppercase tracking-wider text-text-muted font-bold flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-brand-ember" />
-                Step 1: Choose Identity Preset
+Choose Identity Preset
               </span>
               <span className="text-[10px] text-text-muted font-mono">1-click credentials</span>
             </div>
@@ -218,6 +235,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                     className="absolute right-3 top-2.5 text-text-muted hover:text-text-primary"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -251,8 +269,27 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
               </button>
             </div>
 
+            {error && (
+              <div className="flex items-start gap-2 text-xs text-sev-critical-text bg-sev-critical-bg border border-sev-critical-indicator/40 rounded-md p-3">
+                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-sev-critical-indicator" />
+                <div className="flex-1">
+                  <p>{error}</p>
+                  {pendingAttempt && (
+                    <button
+                      type="button"
+                      onClick={handleRetry}
+                      disabled={loading}
+                      className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold underline hover:no-underline"
+                    >
+                      Retry
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="text-[11px] text-text-muted font-mono leading-relaxed bg-surface-soft p-3 rounded-md border border-border">
-              💡 <strong>Judge Demo Guide:</strong> Click <em>"Submit (Wrong Password)"</em> 3-4 times to simulate a brute-force credential stuffing burst. Then click <em>"Submit (Correct Password)"</em> to simulate a successful compromise, and observe the ALIAS behavioral pipeline synthesize the full incident.
+              <strong>Judge Demo Guide:</strong> Click <em>"Submit (Wrong Password)"</em> 3-4 times to simulate a brute-force credential stuffing burst. Then click <em>"Submit (Correct Password)"</em> to simulate a successful compromise, and observe the ALIAS behavioral pipeline synthesize the full incident.
             </div>
           </div>
         </div>
@@ -404,7 +441,7 @@ export default function LoginPortal({ onOpenInvestigation, onGoOverview }) {
 
           <div className="flex items-center justify-between pt-2 flex-wrap gap-3">
             <span className="text-[10px] font-mono text-text-muted">
-              🔒 Telemetry successfully delivered to ALIAS via POST /api/events/login (Zero credential leakage).
+              Telemetry successfully delivered to ALIAS via POST /api/events/login (Zero credential leakage).
             </span>
 
             <div className="flex items-center gap-3">
